@@ -1,4 +1,5 @@
 # MP3 to WAV converter - Davinci Resolve compatible
+# -------------------------------------------------------
 for i in *.mp3;
   do name=`echo "$i" | cut -d'.' -f1`
   echo "$name"

@@ -1,9 +1,11 @@
-#Script to change wallpaper every minute
+# Script to change wallpaper every minute
 
-##Command to list all keys under a gsettings schema
-#gsettings list-keys org.mate.background
-##Command to list key value of a schema
-#gsettings get org.mate.background picture-filename
+##  Command to list all keys under a gsettings schema
+#  gsettings list-keys org.mate.background
+## Command to list key value of a schema
+#  gsettings get org.mate.background picture-filename
+
+# -------------------------------------------------------
 
 while true;do
 	DIR="/home/jaiju/Pictures/4KWalls"
