@@ -101,3 +101,17 @@ ffmpeg -i TimeToCoolOff.mp4 -c:v libx264 -c:a aac TimeToCoolOff2.mp4
 ffmpeg -i Under_the_Gun.mp3 Under_the_Gun.wav 
 ffmpeg -i TimeToCoolOff.mp3 -acodec pcm_u8 -ar 22050 TimeToCoolOff.wav
 
+
+# Setting up Git 
+#-------------------------------------------------------
+	git config --global user.name "Jaiju Jacob"
+	git config --global user.email "joeofcochin@gmail.com"
+	git config --global branch.autosetuprebase always
+	git config --global color.ui true
+	git config --global color.status auto
+	git config --global color.branch auto
+	git config --global core.editor vim
+	git config --global merge.tool vimdiff
+	git config --list
+
+  
