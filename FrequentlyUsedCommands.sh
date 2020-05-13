@@ -5,6 +5,7 @@
 ~/Scripts/MP3toWAV-Converter.sh
 
 
+
 #Linux package cleanup
 #------------------------------------------------------
 $ sudo apt-get autoclean
@@ -104,14 +105,19 @@ ffmpeg -i TimeToCoolOff.mp3 -acodec pcm_u8 -ar 22050 TimeToCoolOff.wav
 
 # Setting up Git 
 #-------------------------------------------------------
-	git config --global user.name "Jaiju Jacob"
-	git config --global user.email "joeofcochin@gmail.com"
-	git config --global branch.autosetuprebase always
-	git config --global color.ui true
-	git config --global color.status auto
-	git config --global color.branch auto
-	git config --global core.editor vim
-	git config --global merge.tool vimdiff
-	git config --list
+git config --global user.name "Jaiju Jacob"
+git config --global user.email "joeofcochin@gmail.com"
+git config --global branch.autosetuprebase always
+git config --global color.ui true
+git config --global color.status auto
+git config --global color.branch auto
+git config --global core.editor vim
+git config --global merge.tool vimdiff
+git config --list
 
-  
+# rolling back last commit without losing the changes made () 
+# purpose is mainly removing unwanted filese from staged file or not maing unwanted commits
+#--------------------------------------------------------
+git reset --soft HEAD~1
+# unstage the files
+git reset HEAD <file> # or . to unstage all
