@@ -121,3 +121,5 @@ git config --list
 git reset --soft HEAD~1
 # unstage the files
 git reset HEAD <file> # or . to unstage all
+# removing files from staging area
+git rm --cached -r . # all files or individual files
