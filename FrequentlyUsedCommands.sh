@@ -17,13 +17,47 @@ $ sudo apt-get autoremove
 #youtube-dl - Commands
 #------------------------------------------------------
 #Best Quality Video Extraction:
-youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4 "YouTubeVideoID"
+youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4 "7X71mt7N7Nk"
 
 #Eg:- youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4 "X8zLJlU_-60"
 
 #Best Audio Download:
 youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 <VideoID>
 #Eg:- youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 Kx1QffGmhPo
+
+
+# FFMPEG usefull commands
+
+#Steabilize Video:
+ffmpeg -t 5 -i 20200725_181439.MP4 -vf vidstabdetect=stepsize=32:shakiness=10:accuracy=10:result=transform_vectors.trf -f null - 
+ffmpeg -t 5 -i 20200725_181439.MP4 -y -vf vidstabtransform=input=transform_vectors.trf:zoom=0:smoothing=10,unsharp=5:5:0.8:3:3:0.4,scale=480:-1 -vcodec libx264 -tune film -an stabilized.mp4
+
+#Steabilize Video: with different params
+ffmpeg -i 20200725_181439.MP4 -vf vidstabdetect=stepsize=32:shakiness=10:accuracy=10:result=transform_vectors.trf -f null -
+ffmpeg -i 20200725_181439.MP4 -vf vidstabtransform=input=transform_vectors.trf:zoom=0:smoothing=10,unsharp=5:5:0.8:3:3:0.4 -vcodec libx264 -tune film -acodec copy -preset slow stabilized.mp4
+
+# Deshake video (stabalize):
+ffmpeg -i input.mov -vf deshake output.mov
+
+# Make video from image sequence:
+ffmpeg -i frame_%04d.png -c:v h264 test.mp4
+
+# lossless h264:
+ffmpeg -i frame%04d.png -c:v libx264 -preset veryslow -qp 0 vid.mkv
+ffmpeg -i frame%04d.png -c:v libx264 -preset ultrafast -qp 0 vid.mkv – larger file size, but quicker to encode
+
+# Make image sequence from video:
+ffmpeg -i video.avi image%04d.png
+ffmpeg -i video.avi .\imgs\image%04d.png – outputs the images to a folder (the folder must already exist!)
+
+
+ffmpeg -v warning -i MyAtion.mp4 -i MyAtion2.mp4 -filter_complex '[0:v]scale=400:400,pad=800:400 [0:q]; [1:v]scale=400:400[1:q]; [0:q][1:q]overlay=400:0' -f nut -c:v rawvideo -c:a copy - | mplayer -noconsolecontrols -cache-min 1 -cache 1024000 -
+
+# Combining 3 videos together
+ffmpeg -i MyAtion2.mp4 -i Kayaking.mp4 -i MyAtion.mp4 -filter_complex "[1:v][0:v]scale2ref=oh*mdar:ih[1v][0v];[2:v][0v]scale2ref=oh*mdar:ih[2v][0v];[0v][1v][2v]hstack=3,scale='2*trunc(iw/2)':'2*trunc(ih/2)'" final.mp4
+
+# Combining Two
+ffmpeg -i MyAtion.mp4 -i MyAtion2.mp4 -filter_complex hstack output2.mp4
 
 
 # Python Virtual Environment Switching
