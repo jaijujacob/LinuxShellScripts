@@ -48,7 +48,7 @@ ffmpeg -i frame%04d.png -c:v libx264 -preset ultrafast -qp 0 vid.mkv – larger 
 
 # Make image sequence from video:
 ffmpeg -i video.avi image%04d.png
-ffmpeg -i video.avi .\imgs\image%04d.png – outputs the images to a folder (the folder must already exist!)
+ffmpeg -i video.avi .\imgs\image%04d.png #– outputs the images to a folder (the folder must already exist!)
 
 
 ffmpeg -v warning -i MyAtion.mp4 -i MyAtion2.mp4 -filter_complex '[0:v]scale=400:400,pad=800:400 [0:q]; [1:v]scale=400:400[1:q]; [0:q][1:q]overlay=400:0' -f nut -c:v rawvideo -c:a copy - | mplayer -noconsolecontrols -cache-min 1 -cache 1024000 -
@@ -58,6 +58,30 @@ ffmpeg -i MyAtion2.mp4 -i Kayaking.mp4 -i MyAtion.mp4 -filter_complex "[1:v][0:v
 
 # Combining Two
 ffmpeg -i MyAtion.mp4 -i MyAtion2.mp4 -filter_complex hstack output2.mp4
+
+# Converting to image
+ffmpeg -i video.mpg image%d.jpg
+
+# Resize a Video
+# Using the -vf scale filter, it is possible to resize videos to a desired size:
+ffmpeg -i input.avi -vf scale=320:240 output.avi
+
+
+# Extract a Portion of a Video
+# Another very common operation on video files is to extract a specific portion of a given video. This can be done super easily:
+ffmpeg -ss 00:00:30 -i orginalfile.mpg -t 00:00:05 -vcodec copy -acodec copy newfile.mpg
+
+
+# Extract Sound From a Video, And Save It in Mp3 Format
+# Creating an audio file from a video is an easy task:
+
+ffmpeg -i source_video.avi -vn -ar 44100 -ac 2 -ab 192k -f mp3 sound.mp3
+
+
+# Image Overlay on a Video
+# Let’s finish this round-up with an advanced command. Here we are applying an overlay image to an existing video:
+
+ffmpeg -i input.mp4 -i image.png -filter_complex "[0:v][1:v] overlay=25:25:enable='between(t,0,20)'" -pix_fmt yuv420p -c:a copy output.mp4
 
 
 # Python Virtual Environment Switching
